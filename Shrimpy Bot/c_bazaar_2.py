@@ -1,9 +1,9 @@
-import setup
-import create_item_embeds as cde
-import open_close_stuff as ocs
+import a_setup
+import b_create_item_embeds as cde
+import d_open_close_stuff as ocs
 
 
-@setup.slash.slash(description="Sell a item to the bazaar", guild_ids=setup.guild_ids)
+@a_setup.slash.slash(description="Sell a item to the bazaar", guild_ids=a_setup.guild_ids)
 async def sell_bazaar(ctx, price, item_number):
 
     print(f"{ctx.author.name} used the sell_bazaar command")
@@ -40,10 +40,10 @@ async def sell_bazaar(ctx, price, item_number):
 
     item_name = cde.create_item_embed(chosen_item, "get a load of this ratiooo")[1]
     await ctx.message.edit(content=f"**{ctx.author.name}**, you have successfully sold **{item_name}** for **{price}** "
-                                   f"{setup.kk} to the bazaar!")
+                                   f"{a_setup.kk} to the bazaar!")
 
 
-@setup.slash.slash(description="Pick up one of your items from the bazaar", guild_ids=setup.guild_ids)
+@a_setup.slash.slash(description="Pick up one of your items from the bazaar", guild_ids=a_setup.guild_ids)
 async def claim(ctx, item_number):
 
     print(f"{ctx.author.name} used the claim command")
@@ -76,7 +76,7 @@ async def claim(ctx, item_number):
                                    f"from the bazaar!")
 
 
-@setup.slash.slash(description="Buy something from the bazaar", guild_ids=setup.guild_ids)
+@a_setup.slash.slash(description="Buy something from the bazaar", guild_ids=a_setup.guild_ids)
 async def buy_bazaar(ctx, item_number):
 
     print(f"{ctx.author.name} used the buy command")
@@ -116,4 +116,4 @@ async def buy_bazaar(ctx, item_number):
         return
 
     await ctx.message.edit(content=f"**{ctx.author.name}**, you have successfully bought **{item_name}** from "
-                                   f"{chosen_item_ls[2]} for **{chosen_item_ls[1]}** {setup.kk}!")
+                                   f"{chosen_item_ls[2]} for **{chosen_item_ls[1]}** {a_setup.kk}!")

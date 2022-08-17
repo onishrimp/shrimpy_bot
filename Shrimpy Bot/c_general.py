@@ -1,11 +1,11 @@
 import random
-import setup
+import a_setup
 
 
-@setup.slash.slash(description="Get the bots ping", guild_ids=setup.guild_ids)
+@a_setup.slash.slash(description="Get the bots ping", guild_ids=a_setup.guild_ids)
 async def ping(ctx):
     print(f"{ctx.author.name} used the ping command")
-    bot_ping = round(setup.client.latency * 1000)
+    bot_ping = round(a_setup.client.latency * 1000)
     clock_emojis = ["🕐", "🕙", "🕥", "🕚", "🕦", "🕛", "🕧", "🕜", "🕑", "🕝", "🕒", "🕞", "🕓", "🕟", "🕔", "🕠", "🕕",
                     "🕡", "🕖", "🕢", "🕗", "🕣", "🕘", "🕤"]
     if bot_ping == 69:
@@ -19,7 +19,7 @@ async def ping(ctx):
     await ctx.send(f"{emoji_1} **Bot Ping - {bot_ping}ms** {emoji_2}")
 
 
-@setup.slash.slash(description="Ask a question to my magic mussel", guild_ids=setup.guild_ids)
+@a_setup.slash.slash(description="Ask a question to my magic mussel", guild_ids=a_setup.guild_ids)
 async def mmm(ctx, question):
     print(f"{ctx.author.name} used the mmm command")
     responses = ["Yes",
@@ -40,7 +40,7 @@ async def mmm(ctx, question):
     await ctx.send(message)
 
 
-@setup.slash.slash(description="Flip a coin", guild_ids=setup.guild_ids)
+@a_setup.slash.slash(description="Flip a coin", guild_ids=a_setup.guild_ids)
 async def coinflip(ctx):
     print(f"{ctx.author.name} used the coinflip command")
     responses = [":moyai: Head :moyai:", ":shark: Tails :shark:"]
@@ -48,13 +48,13 @@ async def coinflip(ctx):
                    f"**{random.choice(responses)}**")
 
 
-@setup.slash.slash(description="Suggest something for the server", guild_ids=setup.guild_ids)
+@a_setup.slash.slash(description="Suggest something for the server", guild_ids=a_setup.guild_ids)
 async def suggestion(ctx, sug):
     print(f"{ctx.author.name} used the suggestion command")
     await ctx.send("Your message is on it's way...")
     sug_len = len(sug)
     if sug_len <= 250:
-        with open(f"{setup.data_file_folder_name}/{ctx.channel.guild.id}/suggestions.txt", mode="a", encoding="utf-8") \
+        with open(f"{a_setup.data_file_folder_name}/{ctx.channel.guild.id}/suggestions.txt", mode="a", encoding="utf-8") \
                 as suggestions:
             suggestions.write(f"{ctx.author.name} suggested: {sug}\n\n")
         await ctx.message.edit(content=f"**{ctx.author.name}**, you have successfully suggested something.")

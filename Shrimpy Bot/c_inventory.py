@@ -1,10 +1,10 @@
-import setup
-import create_item_embeds as cde
+import a_setup
+import b_create_item_embeds as cde
 import discord as dc
-import open_close_stuff as ocs
+import d_open_close_stuff as ocs
 
 
-@setup.slash.slash(description="Take a look at one of your items", guild_ids=setup.guild_ids)
+@a_setup.slash.slash(description="Take a look at one of your items", guild_ids=a_setup.guild_ids)
 async def item_inventory(ctx, item_number):
 
     print(f"{ctx.author.name} used the item command")
@@ -26,7 +26,7 @@ async def item_inventory(ctx, item_number):
     await ctx.message.edit(content=None, embed=embed_and_item_name[0])
 
 
-@setup.slash.slash(description="Take a look at your inventory", guild_ids=setup.guild_ids)
+@a_setup.slash.slash(description="Take a look at your inventory", guild_ids=a_setup.guild_ids)
 async def inventory(ctx, starting_page):
 
     print(f"{ctx.author.name} used the inventory command")

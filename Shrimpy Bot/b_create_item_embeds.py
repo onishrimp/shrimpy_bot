@@ -1,5 +1,5 @@
 import discord as dc
-import open_close_stuff as ocs
+import d_open_close_stuff as ocs
 
 
 def create_item_embed(item_base_name, title):

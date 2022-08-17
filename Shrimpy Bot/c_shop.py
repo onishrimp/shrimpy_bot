@@ -1,12 +1,12 @@
-import setup
-import create_item_embeds as cde
+import a_setup
+import b_create_item_embeds as cde
 import discord as dc
-import open_close_stuff as ocs
+import d_open_close_stuff as ocs
 import datetime
-import create_shop as cs
+import b_create_shop as cs
 
 
-@setup.slash.slash(description="Take a look at the current shop", guild_ids=setup.guild_ids)
+@a_setup.slash.slash(description="Take a look at the current shop", guild_ids=a_setup.guild_ids)
 async def shop(ctx):
 
     print(f"{ctx.author.name} used the shop command")
@@ -23,7 +23,7 @@ async def shop(ctx):
     await ctx.message.add_reaction("🔄")
 
 
-@setup.slash.slash(description="Take a look at the current shop", guild_ids=setup.guild_ids)
+@a_setup.slash.slash(description="Take a look at the current shop", guild_ids=a_setup.guild_ids)
 async def item_shop(ctx, item_number):
 
     print(f"{ctx.author.name} used the item_shop command")
@@ -48,7 +48,7 @@ async def item_shop(ctx, item_number):
     await ctx.message.edit(content=None, embed=embed_and_item_name[0])
 
 
-@setup.slash.slash(description="Take a look at the current shop", guild_ids=setup.guild_ids)
+@a_setup.slash.slash(description="Take a look at the current shop", guild_ids=a_setup.guild_ids)
 async def buy_shop(ctx, item_number):
 
     print(f"{ctx.author.name} used the buy command")
@@ -91,4 +91,4 @@ async def buy_shop(ctx, item_number):
     item_name = cde.create_item_embed(chosen_item_ls[0], "ratioooo")[1]
 
     await ctx.message.edit(content=f"**{ctx.author.name}**, you have successfully bought **{item_name}** from "
-                                   f"**the shop** for **{chosen_item_ls[1]}** {setup.kk}!")
+                                   f"**the shop** for **{chosen_item_ls[1]}** {a_setup.kk}!")

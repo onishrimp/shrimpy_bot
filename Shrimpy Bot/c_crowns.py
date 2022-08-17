@@ -1,9 +1,9 @@
-import setup
+import a_setup
 import datetime
-import open_close_stuff as ocs
+import d_open_close_stuff as ocs
 
 
-@setup.slash.slash(description=f"Claim your daily Kjell Crowns", guild_ids=setup.guild_ids)
+@a_setup.slash.slash(description=f"Claim your daily Kjell Crowns", guild_ids=a_setup.guild_ids)
 async def daily(ctx):
 
     print(f"{ctx.author.name} used the daily command")
@@ -13,7 +13,7 @@ async def daily(ctx):
     message_author = ctx.author.mention.replace("!", "")
 
     # can the user claim their dailies?
-    with open(f"{setup.data_file_folder_name}/{ctx.channel.guild.id}/banned.txt", mode="r", encoding="utf-8") as \
+    with open(f"{a_setup.data_file_folder_name}/{ctx.channel.guild.id}/banned.txt", mode="r", encoding="utf-8") as \
             banned_users_load:
         banned_users = []
         for user in banned_users_load.readlines():
@@ -37,7 +37,7 @@ async def daily(ctx):
         streak[message_author] = 0
 
     if daily_time[message_author] == str(today):
-        await ctx.message.edit(content=f"**{ctx.author.name}**, you have already claimed your {setup.kk} today!")
+        await ctx.message.edit(content=f"**{ctx.author.name}**, you have already claimed your {a_setup.kk} today!")
         return
 
     user_earnings = 65
@@ -74,11 +74,11 @@ async def daily(ctx):
 
     await ctx.message.edit(content=
                            f"Congratulations **{ctx.author.name}**, you have claimed your daily "
-                           f"**{user_earnings}** {setup.kk} ! Your streak is now **{streak[message_author]}** "
+                           f"**{user_earnings}** {a_setup.kk} ! Your streak is now **{streak[message_author]}** "
                            f"{end_emoji}!")
 
 
-@setup.slash.slash(description="See how many Kjell Crowns you have", guild_ids=setup.guild_ids)
+@a_setup.slash.slash(description="See how many Kjell Crowns you have", guild_ids=a_setup.guild_ids)
 async def kk(ctx):
 
     print(f"{ctx.author.name} used the kk command")
@@ -90,7 +90,7 @@ async def kk(ctx):
     users_crowns = ocs.open_crowns(ctx)
 
     if message_author not in users_crowns:
-        await ctx.message.edit(content=f"**{ctx.author.name}**, you haven't possessed any {setup.kk} yet!")
+        await ctx.message.edit(content=f"**{ctx.author.name}**, you haven't possessed any {a_setup.kk} yet!")
 
     else:
-        await ctx.message.edit(content=f"**{ctx.author.name}** has **{users_crowns[message_author]}** {setup.kk}")
+        await ctx.message.edit(content=f"**{ctx.author.name}** has **{users_crowns[message_author]}** {a_setup.kk}")

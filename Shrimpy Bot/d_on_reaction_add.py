@@ -1,17 +1,17 @@
-import create_item_embeds as cde
-import setup
+import b_create_item_embeds as cde
+import a_setup
 import discord as dc
 import datetime
-import create_shop as cs
-import open_close_stuff as ocs
+import b_create_shop as cs
+import d_open_close_stuff as ocs
 
 
-@setup.client.event
+@a_setup.client.event
 async def on_reaction_add(reaction, user):
 
     message_author = user.mention.replace("!", "")
 
-    if message_author == setup.bot_id:
+    if message_author == a_setup.bot_id:
         return
 
     if not (reaction.emoji == "▶️") and not (reaction.emoji == "◀️") and not (reaction.emoji == "🔄"):
@@ -94,7 +94,7 @@ async def on_reaction_add(reaction, user):
         else:
             for d in the_bazaar["bazaar"]:
                 d_name = cde.create_item_embed(d[0], "The current bazaar")[1]
-                bazaar_items.append(f"**{bazaar_index}** - {d_name} - {d[1]} {setup.kk} - von {d[2]}\n")
+                bazaar_items.append(f"**{bazaar_index}** - {d_name} - {d[1]} {a_setup.kk} - von {d[2]}\n")
                 bazaar_index += 1
 
         for d in range(1, 26):

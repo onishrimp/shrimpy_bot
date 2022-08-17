@@ -1,10 +1,10 @@
-import setup
-import create_item_embeds as cde
-import open_close_stuff as ocs
-import generate_random_items as gri
+import a_setup
+import b_create_item_embeds as cde
+import d_open_close_stuff as ocs
+import b_generate_random_items as gri
 
 
-@setup.slash.slash(description="Gamble for 200 Kjell Crowns", guild_ids=setup.guild_ids)
+@a_setup.slash.slash(description="Gamble for 200 Kjell Crowns", guild_ids=a_setup.guild_ids)
 async def gamble(ctx):
 
     print(f"{ctx.author.name} used the gamble command")
@@ -17,7 +17,7 @@ async def gamble(ctx):
     inventory = ocs.open_inv(ctx)
 
     if not users_crowns[message_author] >= 200:
-        await ctx.message.edit(content=f"**{ctx.author.name}**, you don't have enough {setup.kk} to gamble!")
+        await ctx.message.edit(content=f"**{ctx.author.name}**, you don't have enough {a_setup.kk} to gamble!")
         return
 
     users_crowns[message_author] -= 200
@@ -30,7 +30,7 @@ async def gamble(ctx):
     try:
         chosen_item = int(chosen_item)
         await ctx.message.edit(content=f"Wow! Congratulations **{ctx.author.name}**! You pulled **600** "
-                               f"{setup.kk} instead of an item!")
+                               f"{a_setup.kk} instead of an item!")
         users_crowns[message_author] += chosen_item
 
     except ValueError:

@@ -1,5 +1,5 @@
-import setup
-import on_reaction_add
+import a_setup
+import d_on_reaction_add
 import c_general
 import c_gamble
 import c_info
@@ -12,9 +12,9 @@ import c_give
 import c_shop
 
 
-@setup.client.event
+@a_setup.client.event
 async def on_ready():
     print("The bot is online")
 
 
-setup.client.run(setup.token)
+a_setup.client.run(a_setup.token)

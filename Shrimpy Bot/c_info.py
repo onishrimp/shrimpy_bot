@@ -1,12 +1,12 @@
-import setup
+import a_setup
 import discord as dc
 
 
-@setup.slash.slash(description="Learn more about the rarities of items", guild_ids=setup.guild_ids)
+@a_setup.slash.slash(description="Learn more about the rarities of items", guild_ids=a_setup.guild_ids)
 async def rarities(ctx):
 
     print(f"{ctx.author.name} used the rarities command")
-    kk = setup.kk
+    kk = a_setup.kk
 
     description = f"**Common :white_circle:**\n " \
                   f"You can sell them for **40** {kk} to the bank. The probability to pull one is **45%**.\n\n " \
@@ -28,11 +28,11 @@ async def rarities(ctx):
     await ctx.send(embed=embed)
 
 
-@setup.slash.slash(description="The bots basics", guild_ids=setup.guild_ids)
+@a_setup.slash.slash(description="The bots basics", guild_ids=a_setup.guild_ids)
 async def help_bot(ctx):
 
     print(f"{ctx.author.name} used the help_bot command")
-    kk = setup.kk
+    kk = a_setup.kk
 
     description = f"This bot was created by **github.com/onishrimp**.\n\n" \
                   f"**Features**\n" \

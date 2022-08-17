@@ -1,9 +1,9 @@
-import setup
-import create_item_embeds as cde
-import open_close_stuff as ocs
+import a_setup
+import b_create_item_embeds as cde
+import d_open_close_stuff as ocs
 
 
-@setup.slash.slash(description="Sell a item to the bank", guild_ids=setup.guild_ids)
+@a_setup.slash.slash(description="Sell a item to the bank", guild_ids=a_setup.guild_ids)
 async def sell_bank(ctx, item_number):
 
     print(f"{ctx.author.name} used the sell_bank command")
@@ -44,4 +44,4 @@ async def sell_bank(ctx, item_number):
     ocs.close_inv(ctx, inventories)
 
     await ctx.message.edit(content=f"**{ctx.author.name}**, you have successfully sold **{item_name}** for "
-                                   f"**{crown_reward}** {setup.kk}!")
+                                   f"**{crown_reward}** {a_setup.kk}!")
