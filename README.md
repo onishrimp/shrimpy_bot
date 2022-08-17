@@ -4,7 +4,9 @@
 ---
 
 ### About this project
-This discord bot was created in python. With this bot, you can collect dinos on your server and trade these with other members. Every day you can collect a reward to keep your collection streak and get more coins. With these coins, you can either gamble for random dinos or trade with other server members.
+This discord bot was created in python. With this bot, you can collect items on your server and trade these with other 
+members. Every day you can collect a reward to keep your collection streak and get more coins. With these coins, you 
+can either gamble for random dinos or trade with other server members.
 
 ### Features
 - Database System implemented
@@ -16,10 +18,10 @@ This discord bot was created in python. With this bot, you can collect dinos on 
 
 ### Getting started
 1. Clone the project `git clone https://github.com/onishrimp/discord-god.git`
-2. Rename the folder to your server name  in `Datenbank/server_name`
-3. Set up your bot credentials in `src/Gotcha Bot/server_differences.py`
-4. Install required modules with `pip install -r requieremnts.txt`
-5. Create a start file with screen application `screen -S GotchBot python3 main.py`
+2. Rename the folder to your server name  in `Data/server_name`
+3. Set up your bot credentials in `Shrimpy Bot/setup.py`
+4. Install required modules with `pip install -r requierements.txt`
+5. Create a start file with screen application `screen -S shrimpy_bot python3 main.py`
 6. Start Bot via `./start.sh`
 
 
@@ -28,6 +30,5 @@ This discord bot was created in python. With this bot, you can collect dinos on 
 - If you find any bugs, please report these in form of an issue
 
 ### Last things last
-- The bot is completely written in German, so if you want to use your own language, you've to change the strings
+- The bot is completely written in English, so if you want to use your own language, you will have to change the strings
 - Please credit my anywhere if you use this bot
-
