@@ -54,3 +54,4 @@ def cs(ctx):
                   f"*coming soon*"
 
     return description
+
