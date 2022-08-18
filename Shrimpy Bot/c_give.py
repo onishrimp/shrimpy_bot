@@ -120,7 +120,8 @@ async def give(ctx, item_number, addressee):
         await ctx.message.edit(content=f"Invalid item-number **{ctx.author.name}**!")
         return
 
-    item_name = cie.create_item_embed(chosen_item, "whatever, this value won't be needed anyway")[1]
+    ocs.close_inv(ctx, inventories)
 
+    item_name = cie.create_item_embed(chosen_item, "whatever, this value won't be needed anyway")[1]
     await ctx.message.edit(content=f"**{ctx.author.name}**, you have successfully gifted **{item_name}** to "
                                    f"{addressee}!")

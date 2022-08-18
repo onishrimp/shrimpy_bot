@@ -50,3 +50,37 @@ async def help_bot(ctx):
     embed.set_thumbnail(url=icon)
 
     await ctx.send(embed=embed)
+
+
+@a_setup.slash.slash(description="Information for administrators", guild_ids=a_setup.guild_ids)
+async def admin_help(ctx):
+
+    print(f"{ctx.author.name} used the admin_help command")
+
+    message_author = ctx.author.mention.replace("!", "")
+
+    if message_author not in a_setup.bot_owners:
+        await ctx.message.edit(content=f"**YOU ARE NOT MY MASTER 👺**")
+        return
+
+    kk = a_setup.kk
+
+    description = f"This is a small document meant for **the admins** of the bot.\n\n" \
+                  f"**General**\n" \
+                  f"As you probably know, in the **a_setup.py** document you can set a list of administrators that " \
+                  f"are able to use the admin_x commands. They are the only ones that can use these and because they " \
+                  f"have the **power to break the game**, an admin should use them wisely.\n\n" \
+                  f"**/admin_give**\n" \
+                  f"With this command you can either give someone **crowns** if an integer is used, or give someone " \
+                  f"an item if one of the names of **a_items.yaml** is used. As you maybe found out when you went to " \
+                  f"the bottom of the document, there are **specialrank** items listed that you cannot get from " \
+                  f"gambling, or any normal way in the game. With the admin_give command it is possible to give " \
+                  f"these items to people. Try to only have each of them **once** in the game. Maybe you could put " \
+                  f"one for **1000** {kk} when release the bot into the bazaar?"
+
+    embed = dc.Embed(title="Admin Help", colour=dc.Colour(0x6d3619), description=description)
+
+    icon = "https://cdn.discordapp.com/attachments/912362937077891132/914146351548338216/KK_real.png"
+    embed.set_thumbnail(url=icon)
+
+    await ctx.send(embed=embed)
