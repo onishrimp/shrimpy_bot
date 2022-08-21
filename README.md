@@ -17,7 +17,7 @@ can either gamble for random dinos or trade with other server members.
 - Beautiful embeds
 
 ### Getting started
-1. Clone the project `git clone https://github.com/onishrimp/discord-god.git`
+1. Clone the project `git clone https://github.com/onishrimp/shrimpy_bot.git`
 2. Rename the folder to your server name  in `Data/server_name`
 3. Set up your bot credentials in `Shrimpy Bot/setup.py`
 4. Install required modules with `pip install -r requierements.txt`
@@ -31,4 +31,4 @@ can either gamble for random dinos or trade with other server members.
 
 ### Last things last
 - The bot is completely written in English, so if you want to use your own language, you will have to change the strings
-- Please credit my anywhere if you use this bot
+- Please credit me anywhere if you use this bot

@@ -1,6 +1,7 @@
 import a_setup
 import datetime
 import d_open_close_stuff as ocs
+import b_community_server_active as csa
 
 
 @a_setup.slash.slash(description=f"Claim your daily Kjell Crowns", guild_ids=a_setup.guild_ids)
@@ -11,6 +12,7 @@ async def daily(ctx):
     await ctx.send("Your message is on it's way...")
 
     message_author = ctx.author.mention.replace("!", "")
+    printed_author = csa.get_printed_author_name(ctx.author)
 
     # can the user claim their dailies?
     with open(f"{a_setup.data_file_folder_name}/{ctx.channel.guild.id}/banned.txt", mode="r", encoding="utf-8") as \
@@ -37,7 +39,7 @@ async def daily(ctx):
         streak[message_author] = 0
 
     if daily_time[message_author] == str(today):
-        await ctx.message.edit(content=f"**{ctx.author.name}**, you have already claimed your {a_setup.kk} today!")
+        await ctx.message.edit(content=f"**{printed_author}**, you have already claimed your {a_setup.kk} today!")
         return
 
     user_earnings = 65
@@ -73,7 +75,7 @@ async def daily(ctx):
     ocs.close_streak(ctx, streak)
 
     await ctx.message.edit(content=
-                           f"Congratulations **{ctx.author.name}**, you have claimed your daily "
+                           f"Congratulations **{printed_author}**, you have claimed your daily "
                            f"**{user_earnings}** {a_setup.kk} ! Your streak is now **{streak[message_author]}** "
                            f"{end_emoji}!")
 
@@ -86,11 +88,12 @@ async def kk(ctx):
     await ctx.send("Your message is on it's way...")
 
     message_author = ctx.author.mention.replace("!", "")
+    printed_author = csa.get_printed_author_name(ctx.author)
 
     users_crowns = ocs.open_crowns(ctx)
 
     if message_author not in users_crowns:
-        await ctx.message.edit(content=f"**{ctx.author.name}**, you haven't possessed any {a_setup.kk} yet!")
+        await ctx.message.edit(content=f"**{printed_author}**, you haven't possessed any {a_setup.kk} yet!")
 
     else:
-        await ctx.message.edit(content=f"**{ctx.author.name}** has **{users_crowns[message_author]}** {a_setup.kk}")
+        await ctx.message.edit(content=f"**{printed_author}** has **{users_crowns[message_author]}** {a_setup.kk}")

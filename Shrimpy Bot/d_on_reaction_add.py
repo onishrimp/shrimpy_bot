@@ -4,12 +4,14 @@ import discord as dc
 import datetime
 import b_create_shop as cs
 import d_open_close_stuff as ocs
+import b_community_server_active as csa
 
 
 @a_setup.client.event
 async def on_reaction_add(reaction, user):
 
     message_author = user.mention.replace("!", "")
+    printed_author = csa.get_printed_author_name(user)
 
     if message_author == a_setup.bot_id:
         return
@@ -27,7 +29,7 @@ async def on_reaction_add(reaction, user):
     shop_requested = False
 
     # reaction to what?
-    if embed_list[0].title == f"**Inventory of {user.name}**":
+    if embed_list[0].title == f"**Inventory of {printed_author}**":
         inventory_requested = True
     elif embed_list[0].title == "**The current bazaar**":
         bazaar_requested = True
@@ -55,7 +57,7 @@ async def on_reaction_add(reaction, user):
 
         inventory_index = 1
         user_items = []
-        title = f"Property of {user.name}"
+        title = f"Property of {printed_author}"
         inventories = ocs.open_inv(reaction.message)
 
         if message_author not in inventories:
@@ -79,7 +81,7 @@ async def on_reaction_add(reaction, user):
         if description == "":
             description = "Theres nothing on this page!"
 
-        embed_title = f"**Inventory of {user.name}**"
+        embed_title = f"**Inventory of {printed_author}**"
         footer = f"Page {page}"
 
     elif bazaar_requested:

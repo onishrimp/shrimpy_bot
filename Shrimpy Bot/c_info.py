@@ -83,4 +83,5 @@ async def admin_help(ctx):
     icon = "https://cdn.discordapp.com/attachments/912362937077891132/914146351548338216/KK_real.png"
     embed.set_thumbnail(url=icon)
 
-    await ctx.send(embed=embed)
+    await ctx.author.send(embed=embed)
+    await ctx.send(f"**Success.**")

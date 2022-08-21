@@ -1,6 +1,7 @@
 import a_setup
 import b_create_item_embeds as cde
 import d_open_close_stuff as ocs
+import b_community_server_active as csa
 
 
 @a_setup.slash.slash(description="Sell a item to the bazaar", guild_ids=a_setup.guild_ids)
@@ -11,11 +12,12 @@ async def sell_bazaar(ctx, price, item_number):
     await ctx.send("Your message is on it's way...")
 
     message_author = ctx.author.mention.replace("!", "")
+    printed_author = csa.get_printed_author_name(ctx.author)
 
     try:
         price = int(price)
     except ValueError:
-        await ctx.message.edit(content=f"Invalid price, **{ctx.author.name}**!")
+        await ctx.message.edit(content=f"Invalid price, **{printed_author}**!")
         return
 
     if price < 0:
@@ -29,7 +31,7 @@ async def sell_bazaar(ctx, price, item_number):
     try:
         chosen_item = inventories[message_author][int(item_number) - 1]
     except IndexError:
-        await ctx.message.edit(content=f"Invalid item-number, **{ctx.author.name}**!")
+        await ctx.message.edit(content=f"Invalid item-number, **{printed_author}**!")
         return
 
     the_bazaar["bazaar"].append([chosen_item, price, message_author])
@@ -38,19 +40,20 @@ async def sell_bazaar(ctx, price, item_number):
     ocs.close_bazaar(ctx, the_bazaar)
     ocs.close_inv(ctx, inventories)
 
-    item_name = cde.create_item_embed(chosen_item, "get a load of this ratiooo")[1]
-    await ctx.message.edit(content=f"**{ctx.author.name}**, you have successfully sold **{item_name}** for **{price}** "
+    item_name = cde.create_item_embed(chosen_item, "get a load of this ratio")[1]
+    await ctx.message.edit(content=f"**{printed_author}**, you have successfully sold **{item_name}** for **{price}** "
                                    f"{a_setup.kk} to the bazaar!")
 
 
 @a_setup.slash.slash(description="Pick up one of your items from the bazaar", guild_ids=a_setup.guild_ids)
-async def claim(ctx, item_number):
+async def claim_bazaar(ctx, item_number):
 
     print(f"{ctx.author.name} used the claim command")
 
     await ctx.send("Your message is on it's way...")
 
     message_author = ctx.author.mention.replace("!", "")
+    printed_author = csa.get_printed_author_name(ctx.author)
 
     the_bazaar = ocs.open_bas(ctx)
     inventories = ocs.open_inv(ctx)
@@ -58,11 +61,11 @@ async def claim(ctx, item_number):
     try:
         chosen_item_ls = the_bazaar["bazaar"][int(item_number) - 1]
     except IndexError:
-        await ctx.message.edit(content=f"Invalid item-number, **{ctx.author.name}**!")
+        await ctx.message.edit(content=f"Invalid item-number, **{printed_author}**!")
         return
 
     if not chosen_item_ls[2] == message_author:
-        await ctx.message.edit(content=f"This is not your item, **{ctx.author.name}**!")
+        await ctx.message.edit(content=f"This is not your item, **{printed_author}**!")
         return
 
     del the_bazaar["bazaar"][int(item_number) - 1]
@@ -72,7 +75,7 @@ async def claim(ctx, item_number):
     ocs.close_inv(ctx, inventories)
 
     item_name = cde.create_item_embed(chosen_item_ls[0], "ratio???")[1]
-    await ctx.message.edit(content=f"**{ctx.author.name}**, you have successfully claimed **{item_name}** "
+    await ctx.message.edit(content=f"**{printed_author}**, you have successfully claimed **{item_name}** "
                                    f"from the bazaar!")
 
 
@@ -84,6 +87,7 @@ async def buy_bazaar(ctx, item_number):
     await ctx.send("Your message is on it's way...")
 
     message_author = ctx.author.mention.replace("!", "")
+    printed_author = csa.get_printed_author_name(ctx.author)
 
     the_bazaar = ocs.open_bas(ctx)
     inventories = ocs.open_inv(ctx)
@@ -92,11 +96,11 @@ async def buy_bazaar(ctx, item_number):
     try:
         chosen_item_ls = the_bazaar["bazaar"][int(item_number) - 1]
     except IndexError:
-        await ctx.message.edit(content=f"Invalid item-number, **{ctx.author.name}**!")
+        await ctx.message.edit(content=f"Invalid item-number, **{printed_author}**!")
         return
 
     if users_crowns[message_author] < int(chosen_item_ls[1]):
-        await ctx.message.edit(content=f"You don't have enough Kjell Crowns to buy this, **{ctx.author.name}**!")
+        await ctx.message.edit(content=f"You don't have enough Kjell Crowns to buy this, **{printed_author}**!")
         return
 
     users_crowns[message_author] -= int(chosen_item_ls[1])
@@ -108,12 +112,12 @@ async def buy_bazaar(ctx, item_number):
     ocs.close_inv(ctx, inventories)
     ocs.close_crowns(ctx, users_crowns)
 
-    item_name = cde.create_item_embed(chosen_item_ls[0], "ratioooo")[1]
+    item_name = cde.create_item_embed(chosen_item_ls[0], "ratio")[1]
 
     if message_author == chosen_item_ls[2]:
-        await ctx.message.edit(content=f"**{ctx.author.name}**, you have bought your own item from the bazaar... "
+        await ctx.message.edit(content=f"**{printed_author}**, you have bought your own item from the bazaar... "
                                        f"You could've just used **/claim** for that...")
         return
 
-    await ctx.message.edit(content=f"**{ctx.author.name}**, you have successfully bought **{item_name}** from "
+    await ctx.message.edit(content=f"**{printed_author}**, you have successfully bought **{item_name}** from "
                                    f"{chosen_item_ls[2]} for **{chosen_item_ls[1]}** {a_setup.kk}!")
