@@ -87,6 +87,11 @@ async def pay(ctx, crown_quantity, addressee):
                                        f"**{printed_author}**!")
         return
 
+    if crown_quantity < 0:
+        await ctx.message.edit(content=f"Invalid amount, "
+                                       f"**{printed_author}**!")
+        return
+
     users_crowns[message_author] -= crown_quantity
     users_crowns[addressee] += crown_quantity
 
