@@ -59,20 +59,15 @@ async def inventory(ctx, starting_page):
     else:
 
         item_range = 25 * (page - 1)
-        user_items = []
-        title = f"Property of {printed_author}"
-        inventory_index = 1
+        inventory_index = item_range + 1
 
-        for d in inventories[message_author]:
-            user_items.append(f"**{inventory_index}** - {cde.create_item_embed(d, title)[1]}\n")
-            inventory_index += 1
-
-        for d in range(0, 25):
+        for d in range(item_range, item_range + 25):
             try:
-                d += item_range
-                description += user_items[d]
+                description += f"**{inventory_index}** - " \
+                               f"{cde.create_item_embed(inventories[message_author][d], None)[1]}\n"
             except IndexError:
                 break
+            inventory_index += 1
 
         if description == "":
             description = "Theres nothing on this page!"

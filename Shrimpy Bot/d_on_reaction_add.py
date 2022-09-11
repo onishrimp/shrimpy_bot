@@ -55,8 +55,7 @@ async def on_reaction_add(reaction, user):
 
     if inventory_requested:
 
-        inventory_index = 1
-        user_items = []
+        inventory_index = item_range + 1
         title = f"Property of {printed_author}"
         inventories = ocs.open_inv(reaction.message)
 
@@ -67,16 +66,13 @@ async def on_reaction_add(reaction, user):
             description = "Your inventory is empty!"
 
         else:
-            for d in inventories[message_author]:
-                user_items.append(f"**{inventory_index}** - {cde.create_item_embed(d, title)[1]}\n")
-                inventory_index += 1
-
-            for d in range(0, 25):
+            for d in range(item_range, item_range + 25):
                 try:
-                    d += item_range
-                    description += user_items[d]
+                    description += f"**{inventory_index}** - " \
+                                   f"{cde.create_item_embed(inventories[message_author][d], title)[1]}\n"
                 except IndexError:
                     break
+                inventory_index += 1
 
         if description == "":
             description = "Theres nothing on this page!"
@@ -85,26 +81,21 @@ async def on_reaction_add(reaction, user):
         footer = f"Page {page}"
 
     elif bazaar_requested:
-        bazaar_index = 1
-        bazaar_items = []
-
+        bazaar_index = item_range + 1
         the_bazaar = ocs.open_bas(reaction.message)
 
         if not the_bazaar["bazaar"]:
             description = "The bazaar is empty!"
 
         else:
-            for d in the_bazaar["bazaar"]:
-                d_name = cde.create_item_embed(d[0], "The current bazaar")[1]
-                bazaar_items.append(f"**{bazaar_index}** - {d_name} - {d[1]} {a_setup.kk} - von {d[2]}\n")
+            for d in range(item_range, item_range + 25):
+                try:
+                    tb = the_bazaar["bazaar"][d]
+                    description += f"**{bazaar_index}** - {cde.create_item_embed(tb[0], None)[1]} - " \
+                                   f"{tb[1]} {a_setup.kk} - von {tb[2]}\n"
+                except IndexError:
+                    break
                 bazaar_index += 1
-
-        for d in range(1, 26):
-            try:
-                d += item_range
-                description += bazaar_items[d - 1]
-            except IndexError:
-                break
 
         if description == "":
             description = "Theres nothing on this page!"

@@ -97,8 +97,15 @@ async def pay(ctx, crown_quantity, addressee):
 
     ocs.close_crowns(ctx, users_crowns)
 
-    await ctx.message.edit(content=f"**{printed_author}**, you have successfully payed {addressee} "
-                                   f"**{crown_quantity}** {a_setup.kk}!")
+    if message_author == addressee:
+        message_content = f"**{printed_author}**, you have successfully payed {addressee} " \
+                        f"**{crown_quantity}** {a_setup.kk}! Why tho"
+
+    else:
+        message_content = f"**{printed_author}**, you have successfully payed {addressee} " \
+                                   f"**{crown_quantity}** {a_setup.kk}!"
+
+    await ctx.message.edit(content=message_content)
 
 
 @a_setup.slash.slash(description="Give someone an item of your inventory", guild_ids=a_setup.guild_ids)
