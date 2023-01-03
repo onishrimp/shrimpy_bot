@@ -2,10 +2,8 @@ import a_setup
 import discord as dc
 
 
-@a_setup.slash.slash(description="Learn more about the rarities of items", guild_ids=a_setup.guild_ids)
+@a_setup.client.slash_command(description="Learn more about the rarities of items", guild_ids=a_setup.guild_ids)
 async def rarities(ctx):
-
-    print(f"{ctx.author.name} used the rarities command")
     kk = a_setup.kk
 
     description = f"**Common :white_circle:**\n " \
@@ -25,13 +23,11 @@ async def rarities(ctx):
                   f"Each of them **should only be once in the game**."
 
     embed = dc.Embed(title="Information about rarities", colour=dc.Colour(0x6d3619), description=description)
-    await ctx.send(embed=embed)
+    await ctx.respond(embed=embed)
 
 
-@a_setup.slash.slash(description="The bots basics", guild_ids=a_setup.guild_ids)
+@a_setup.client.slash_command(name="help", description="The bots basics", guild_ids=a_setup.guild_ids)
 async def help_bot(ctx):
-
-    print(f"{ctx.author.name} used the help_bot command")
     kk = a_setup.kk
 
     description = f"This bot was created by **github.com/onishrimp**.\n\n" \
@@ -49,39 +45,36 @@ async def help_bot(ctx):
     icon = "https://cdn.discordapp.com/attachments/912362937077891132/914146351548338216/KK_real.png"
     embed.set_thumbnail(url=icon)
 
-    await ctx.send(embed=embed)
+    await ctx.respond(embed=embed)
 
 
-@a_setup.slash.slash(description="Information for administrators", guild_ids=a_setup.guild_ids)
-async def admin_help(ctx):
-
-    print(f"{ctx.author.name} used the admin_help command")
-
-    message_author = ctx.author.mention.replace("!", "")
-
-    if message_author not in a_setup.bot_owners:
-        await ctx.message.edit(content=f"**YOU ARE NOT MY MASTER 👺**")
-        return
-
-    kk = a_setup.kk
-
-    description = f"This is a small document meant for **the admins** of the bot.\n\n" \
-                  f"**General**\n" \
-                  f"As you probably know, in the **a_setup.py** document you can set a list of administrators that " \
-                  f"are able to use the admin_x commands. They are the only ones that can use these and because they " \
-                  f"have the **power to break the game**, an admin should use them wisely.\n\n" \
-                  f"**/admin_give**\n" \
-                  f"With this command you can either give someone **crowns** if an integer is used, or give someone " \
-                  f"an item if one of the names of **a_items.yaml** is used. As you maybe found out when you went to " \
-                  f"the bottom of the document, there are **specialrank** items listed that you cannot get from " \
-                  f"gambling, or any normal way in the game. With the admin_give command it is possible to give " \
-                  f"these items to people. Try to only have each of them **once** in the game. Maybe you could put " \
-                  f"one for **1000** {kk} when release the bot into the bazaar?"
-
-    embed = dc.Embed(title="Admin Help", colour=dc.Colour(0x6d3619), description=description)
-
-    icon = "https://cdn.discordapp.com/attachments/912362937077891132/914146351548338216/KK_real.png"
-    embed.set_thumbnail(url=icon)
-
-    await ctx.author.send(embed=embed)
-    await ctx.send(f"**Success.**")
+# @a_setup.client.slash_command(name="admin-help", description="Information for administrators",
+#                               guild_ids=a_setup.guild_ids)
+# async def admin_help(ctx):
+#     message_author = ctx.author.mention.replace("!", "")
+#
+#     if message_author not in a_setup.bot_owners:
+#         await ctx.respond(content=f"**YOU ARE NOT MY MASTER 👺**", ephemeral=True)
+#         return
+#
+#     kk = a_setup.kk
+#
+#     description = f"This is a small document meant for **the admins** of the bot.\n\n" \
+#                   f"**General**\n" \
+#                   f"As you probably know, in the **a_setup.py** document you can set a list of administrators that " \
+#                   f"are able to use the admin_x commands. They are the only ones that can use these and because they " \
+#                   f"have the **power to break the game**, an admin should use them wisely.\n\n" \
+#                   f"**/admin_give**\n" \
+#                   f"With this command you can either give someone **crowns** if an integer is used, or give someone " \
+#                   f"an item if one of the names of **a_items.yaml** is used. As you maybe found out when you went to " \
+#                   f"the bottom of the document, there are **specialrank** items listed that you cannot get from " \
+#                   f"gambling, or any normal way in the game. With the admin_give command it is possible to give " \
+#                   f"these items to people. Try to only have each of them **once** in the game. Maybe you could put " \
+#                   f"one for **1000** {kk} when releasing the bot into the bazaar?"
+#
+#     embed = dc.Embed(title="Admin Help", colour=dc.Colour(0x6d3619), description=description)
+#
+#     icon = "https://cdn.discordapp.com/attachments/912362937077891132/914146351548338216/KK_real.png"
+#     embed.set_thumbnail(url=icon)
+#
+#     await ctx.respond(embed=embed, ephemeral=True)

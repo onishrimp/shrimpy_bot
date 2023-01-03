@@ -1,11 +1,11 @@
 import random
 import a_setup
 import b_community_server_active as csa
+import discord as dc
 
 
-@a_setup.slash.slash(description="Get the bots ping", guild_ids=a_setup.guild_ids)
+@a_setup.client.slash_command(name="ping", description="Get the bots ping", guild_ids=a_setup.guild_ids)
 async def ping(ctx):
-    print(f"{ctx.author.name} used the ping command")
     bot_ping = round(a_setup.client.latency * 1000)
     clock_emojis = ["🕐", "🕙", "🕥", "🕚", "🕦", "🕛", "🕧", "🕜", "🕑", "🕝", "🕒", "🕞", "🕓", "🕟", "🕔", "🕠", "🕕",
                     "🕡", "🕖", "🕢", "🕗", "🕣", "🕘", "🕤"]
@@ -17,12 +17,11 @@ async def ping(ctx):
         emoji_1, emoji_2 = ":four_leaf_clover:", ":four_leaf_clover:"
     else:
         emoji_1, emoji_2 = random.choice(clock_emojis), random.choice(clock_emojis)
-    await ctx.send(f"{emoji_1} **Bot Ping - {bot_ping}ms** {emoji_2}")
+    await ctx.respond(f"{emoji_1} **Bot Ping - {bot_ping}ms** {emoji_2}")
 
 
-@a_setup.slash.slash(description="Ask a question to my magic mussel", guild_ids=a_setup.guild_ids)
-async def mmm(ctx, question):
-    print(f"{ctx.author.name} used the mmm command")
+@a_setup.client.slash_command(name="mmm", description="Ask a question to my magic mussel", guild_ids=a_setup.guild_ids)
+async def mmm(ctx, question: dc.Option(description="Your question to my magic mussel")):
     printed_author = csa.get_printed_author_name(ctx.author)
     responses = ["Yes",
                  "Definitely",
@@ -39,32 +38,30 @@ async def mmm(ctx, question):
                   f":fire: **BLOOOOOOOD :white_flower: SHEEEEEEEEEED** :boom: :boom: :boom:"
     elif question == "What do you know?":
         message = f"**QUESTION FROM {printed_author}:** {question}\n**ANSWER:** I only know what I know."
-    await ctx.send(message)
+    await ctx.respond(message)
 
 
-@a_setup.slash.slash(description="Flip a coin", guild_ids=a_setup.guild_ids)
+@a_setup.client.slash_command(description="Flip a coin", guild_ids=a_setup.guild_ids)
 async def coinflip(ctx):
-    print(f"{ctx.author.name} used the coinflip command")
     printed_author = csa.get_printed_author_name(ctx.author)
     responses = [":moyai: Head :moyai:", ":shark: Tails :shark:"]
-    await ctx.send(f"**{printed_author}** flipped a coin. :coin:\n\nThe result is:\n"
-                   f"**{random.choice(responses)}**")
+    await ctx.respond(f"**{printed_author}** flipped a coin. :coin:\nThe result is:\n"
+                      f"**{random.choice(responses)}**")
 
 
-@a_setup.slash.slash(description="Suggest something for the server", guild_ids=a_setup.guild_ids)
-async def suggestion(ctx, sug):
-    print(f"{ctx.author.name} used the suggestion command")
-    await ctx.send("Your message is on it's way...")
+@a_setup.client.slash_command(description="Suggest something for the server", guild_ids=a_setup.guild_ids)
+async def suggestion(ctx, sug: dc.Option(description="Your suggestion in under 250 characters")):
+    await ctx.respond("Your message is on it's way...")
     printed_author = csa.get_printed_author_name(ctx.author)
     sug_len = len(sug)
     if sug_len <= 250:
         with open(f"{a_setup.data_file_folder_name}/{ctx.channel.guild.id}/suggestions.txt", mode="a", encoding="utf-8") \
                 as suggestions:
             suggestions.write(f"{printed_author} suggested: {sug}\n\n")
-        await ctx.message.edit(content=f"**{printed_author}**, you have successfully suggested something.")
+        await ctx.edit(content=f"**{printed_author}**, you have successfully suggested something.")
     elif sug_len == 690:
-        await ctx.message.edit(content=f"**{printed_author}**, try to stay below **250 characters**! You used: "
+        await ctx.edit(content=f"**{printed_author}**, try to stay below **250 characters**! You used: "
                                f"**{sug_len}** :flushed:")
     elif sug_len > 250:
-        await ctx.message.edit(content=f"**{printed_author}**, try to stay below **250 characters**! You used: "
+        await ctx.edit(content=f"**{printed_author}**, try to stay below **250 characters**! You used: "
                                        f"**{sug_len}** :skull:")

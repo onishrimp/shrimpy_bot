@@ -42,10 +42,22 @@ def gri(prob_list, absolute_amount, prob_crowns):
         chosen_letter = random.choice(probabilities)
         if chosen_letter == "E":
             chosen_item = 600
+            final_items.append(chosen_item)
+
         else:
             chosen_rarity = letter_translation_dict[chosen_letter]
             chosen_item_raw = eval(chosen_rarity)  # transform to one of the lists above
             chosen_item = random.choice(chosen_item_raw)  # item name
-        final_items.append(chosen_item)
+
+            possible_attack = []
+            for s in range(items[chosen_item][3][0][0], items[chosen_item][3][0][1] + 1):
+                possible_attack.append(s)
+
+            possible_health = []
+            for s in range(items[chosen_item][3][1][0], items[chosen_item][3][1][1] + 1):
+                possible_health.append(s)
+
+            stat_tuple = (random.choice(possible_attack), random.choice(possible_health))
+            final_items.append([chosen_item, stat_tuple])
 
     return final_items
