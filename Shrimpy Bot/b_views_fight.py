@@ -271,6 +271,7 @@ class PreFightView(dc.ui.View):
         if ma in fight_starts:
             fight_starts.pop(ma)
             fight_starts.pop(opp)
+        fbt.rank_shit(ma, opp)
 
         await interaction.response.edit_message(embed=embed)
         await interaction.message.channel.send(f"🔆 {ma} has **surrendered** in a fight against {opp} 🔆")
